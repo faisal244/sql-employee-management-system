@@ -2,17 +2,17 @@
 
 USE company_db;
 
-insert into department (name)
-values ("Sales");
+insert into department (id,name)
+values (1, "Sales");
 
-insert into department (name)
-values ("Marketing");
+insert into department (id, name)
+values (2, "Marketing");
 
-insert into department (name)
-values ("IT");
+insert into department (id, name)
+values (3, "IT");
 
-insert into department (name)
-values ("Engineering");
+insert into department (id,name)
+values (4, "Engineering");
 
 
 -- roles
