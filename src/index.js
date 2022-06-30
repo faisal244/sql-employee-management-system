@@ -1,20 +1,30 @@
+const inquirer = require("inquirer");
+const mysql = require("mysql2");
 require("dotenv").config();
 
-const inquirer = require("inquirer");
+const questions = require("./utils/questions");
 
-const questions = require("./utils/questions.js");
+const Db = require("./db");
 
-const initDatabase = require("./db");
+const {
+	getDepartments,
+	getRoles,
+	getEmployees,
+	addDepartment,
+} = require("./utils/queries.js");
+
+const db = new Db({
+	host: process.env.DB_HOST || "localhost",
+	user: process.env.DB_USER || "root",
+	password: process.env.DB_PASSWORD || "password",
+	database: process.env.DB_NAME || "company_db",
+});
 
 const init = async () => {
 	try {
 		// console.log(process.env);
-		const { executeQuery, closeConnection } = await initDatabase({
-			host: process.env.DB_HOST || "localhost",
-			user: process.env.DB_USER || "root",
-			password: process.env.DB_PASSWORD || "password",
-			database: process.env.DB_NAME || "company_db",
-		});
+
+		await db.start();
 
 		let inProgress = true;
 
@@ -22,9 +32,13 @@ const init = async () => {
 			const { dbAction } = await inquirer.prompt(questions);
 
 			if (dbAction === "viewEmployee") {
-				const users = await executeQuery("SELECT * FROM users");
+				const employees = await db.query(
+					`SELECT CONCAT(e.firstName,' ', e.lastName) AS 'EMPLOYEE', j.title AS 'JOB ROLE', d.name AS 'DEPARTMENT', j.salary AS 'SALARY',
+      CONCAT( m.firstName,' ',  m.lastName) AS MANAGER
+      FROM employee AS e JOIN employee AS m ON e.managerId = m.id INNER JOIN jobRole j ON e.jobRoleId = j.id LEFT JOIN department d ON j.departmentId = d.id;`
+				);
 
-				console.table(users);
+				console.table(employees);
 			}
 
 			if (dbAction === "viewRoles") {
