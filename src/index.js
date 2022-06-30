@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const inquirer = require("inquirer");
 
-const choiceQuestions = require("./utils/questions.js");
+const questions = require("./utils/questions.js");
 
 const initDatabase = require("./db");
 
@@ -10,44 +10,35 @@ const init = async () => {
 	try {
 		// console.log(process.env);
 		const { executeQuery, closeConnection } = await initDatabase({
-			host: "localhost",
-			user: process.env.DB_USER,
-			password: process.env.DB_PASSWORD,
-			database: "company_db",
-			// dialect: "mysql",
-
-			// 			const options = {
-			// 	host: DB_HOST,
-			// 	dialect: "mysql",
-			// 	port: 3306,
-			// 	logging: false,
-			// };
-			// PORT: process.env.PORT,
+			host: process.env.DB_HOST || "localhost",
+			user: process.env.DB_USER || "root",
+			password: process.env.DB_PASSWORD || "password",
+			database: process.env.DB_NAME || "company_db",
 		});
 
 		let inProgress = true;
 
-		// while (inProgress) {
-		// 	const { dbAction } = await inquirer.prompt(question);
+		while (inProgress) {
+			const { dbAction } = await inquirer.prompt(questions);
 
-		// 	if (dbAction === "viewEmployee") {
-		// 		const users = await executeQuery("SELECT * FROM users");
+			if (dbAction === "viewEmployee") {
+				const users = await executeQuery("SELECT * FROM users");
 
-		// 		console.table(users);
-		// 	}
+				console.table(users);
+			}
 
-		// 	if (dbAction === "viewRoles") {
-		// 		const books = await executeQuery("SELECT * FROM ??", ["roles"]);
+			if (dbAction === "viewRoles") {
+				const books = await executeQuery("SELECT * FROM ??", ["roles"]);
 
-		// 		console.table(roles);
-		// 	}
+				console.table(roles);
+			}
 
-		// 	if (dbAction === "exit") {
-		// 		await closeConnection();
-		// 		inProgress = false;
-		// 		console.log("THANK YOU");
-		// 	}
-		// }
+			if (dbAction === "exit") {
+				await closeConnection();
+				inProgress = false;
+				console.log("THANK YOU");
+			}
+		}
 	} catch (error) {
 		console.log(`[ERROR]: Internal error | ${error.message}`);
 	}

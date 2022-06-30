@@ -1,12 +1,7 @@
 const mysql = require("mysql2/promise");
 const initDatabase = async (config) => {
 	// console.log(config);
-	const db = await mysql.createConnection({
-		host: "localhost",
-		user: process.env.DB_USER,
-		password: process.env.DB_PASSWORD,
-		database: "company_db",
-	});
+	const db = await mysql.createConnection;
 
 	const executeQuery = async (query, values) => {
 		if (values) {
