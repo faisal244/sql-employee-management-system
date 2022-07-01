@@ -42,7 +42,7 @@ const init = async () => {
 			}
 
 			if (dbAction === "viewRoles") {
-				const books = await executeQuery("SELECT * FROM ??", ["roles"]);
+				const allRoles = await sendQuery(getRoles);
 
 				console.table(roles);
 			}

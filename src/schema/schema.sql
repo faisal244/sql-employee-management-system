@@ -3,32 +3,39 @@ CREATE DATABASE company_db;
 
 USE company_db;
 
-CREATE TABLE departments (
+CREATE TABLE department (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(30) NOT NULL,
   PRIMARY KEY (id)
 );
 
-CREATE TABLE roles (
+CREATE TABLE role (
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(30) NOT NULL,
     salary DECIMAL(8 , 2 ) NOT NULL,
     department_id INT NOT NULL,
+    PRIMARY KEY (id),
     FOREIGN KEY (department_id)
-        REFERENCES departments (id)
-        ON UPDATE CASCADE ON DELETE CASCADE,
-        PRIMARY KEY (id)
+        REFERENCES department (id)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+
 CREATE TABLE employee (
-id INT NOT NULL AUTO_INCREMENT,
-first_name VARCHAR(30) NOT NULL,
-last_name VARCHAR(30) NOT NULL,
-role_id INT,
-PRIMARY KEY (id),
-FOREIGN KEY (role_id) REFERENCES roles(id)
-ON DELETE SET NULL,
-manager_id INT,
-FOREIGN KEY (manager_id) REFERENCES employee(id)
-ON DELETE SET NULL
+  id INT NOT NULL AUTO_INCREMENT,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  role_id INT NOT NULL,
+  manager_id INT,
+  PRIMARY KEY (id),
+   CONSTRAINT employee_ibfk_1
+    FOREIGN KEY (role_id) 
+    REFERENCES role(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+   CONSTRAINT employee_ibfk_2
+    FOREIGN KEY (manager_id) 
+    REFERENCES employee(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
 );

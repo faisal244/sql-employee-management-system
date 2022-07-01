@@ -2,45 +2,45 @@
 
 USE company_db;
 
-insert into departments (name)
+insert into department (name)
 values ("Sales");
 
-insert into departments (name)
+insert into department (name)
 values ("Marketing");
 
-insert into departments (name)
+insert into department (name)
 values ("IT");
 
-insert into departments (name)
+insert into department (name)
 values ("Engineering");
 
 
 -- roles
 -- USE company_db;
 
-insert into roles (title, salary, department_id)
+insert into role (title, salary, department_id)
 values ("Sales Executive", 24000, 1);
-insert into roles (title, salary, department_id)
+insert into role (title, salary, department_id)
 values ("Sales Manager", 35000, 1);
-insert into roles (title, salary, department_id)
+insert into role (title, salary, department_id)
 values ("Sales Director", 60000, 1);
-insert into roles (title, salary, department_id)
+insert into role (title, salary, department_id)
 values ("Lead Engineer", 60000, 3);
-insert into roles (title, salary, department_id)
+insert into role (title, salary, department_id)
 values ("Senior Software Engineer", 45000, 3);
-insert into roles (title, salary, department_id)
+insert into role (title, salary, department_id)
 values ("Junior Software Engineer", 30000, 3);
-insert into roles (title, salary, department_id)
+insert into role (title, salary, department_id)
 values ("Marketing Executive", 20000, 2);
-insert into roles (title, salary, department_id)
+insert into role (title, salary, department_id)
 values ("Marketing Manager", 30000, 2);
-insert into roles (title, salary, department_id)
+insert into role (title, salary, department_id)
 values ("Group Marketing Director", 70000, 2);
-insert into roles (title, salary, department_id)
+insert into role (title, salary, department_id)
 values ("Application Support Analyst", 35000, 4);
-insert into roles (title, salary, department_id)
+insert into role (title, salary, department_id)
 values ("IT Manager", 55000, 4);
-insert into roles (title, salary, department_id)
+insert into role (title, salary, department_id)
 values ("IT Director", 75000, 4);
 
 
@@ -48,7 +48,7 @@ values ("IT Director", 75000, 4);
 -- USE company_db;
 
 insert into employee (first_name, last_name, role_id, manager_id)
-values ("Barry", "Thomson", 2, 1);
+values ("Barry", "Thomson", 2, 3);
 insert into employee (first_name, last_name, role_id, manager_id)
 values ("Julie", "Christmas", 2, 2);
 insert into employee (first_name, last_name, role_id, manager_id)
