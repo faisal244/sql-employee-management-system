@@ -21,4 +21,4 @@ INSERT INTO department (name) VALUES ('Finance');
 INSERT INTO role (title, salary, department_id) VALUES ('Junior', 1000, 3);
 
 -- -- insert employee
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Barry', 'Bungalow', 2, 5)
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('Barry', 'Bungalow', 2, 3)

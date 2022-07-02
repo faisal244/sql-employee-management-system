@@ -6,12 +6,7 @@ const questions = require("./utils/questions");
 
 const Db = require("./db");
 
-const {
-	getDepartments,
-	getRoles,
-	getEmployees,
-	addDepartment,
-} = require("./utils/queries.js");
+const { getDepartments, getRoles, getEmployees } = require("./utils/queries");
 
 const db = new Db({
 	host: process.env.DB_HOST || "localhost",
@@ -32,20 +27,16 @@ const init = async () => {
 			const { dbAction } = await inquirer.prompt(questions);
 
 			if (dbAction === "viewEmployee") {
-				const employees = await db.query(
-					`SELECT CONCAT(e.firstName,' ', e.lastName) AS 'EMPLOYEE', j.title AS 'JOB ROLE', d.name AS 'DEPARTMENT', j.salary AS 'SALARY',
-      CONCAT( m.firstName,' ',  m.lastName) AS MANAGER
-      FROM employee AS e JOIN employee AS m ON e.managerId = m.id INNER JOIN jobRole j ON e.jobRoleId = j.id LEFT JOIN department d ON j.departmentId = d.id;`
-				);
+				await getEmployees();
 
 				console.table(employees);
 			}
 
-			if (dbAction === "viewRoles") {
-				const allRoles = await sendQuery(getRoles);
+			// if (dbAction === "viewRoles") {
+			// 	const allRoles = await sendQuery(getRoles);
 
-				console.table(roles);
-			}
+			// 	console.table(roles);
+			// }
 
 			if (dbAction === "exit") {
 				await closeConnection();

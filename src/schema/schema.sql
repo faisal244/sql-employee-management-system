@@ -28,14 +28,13 @@ CREATE TABLE employee (
   role_id INT NOT NULL,
   manager_id INT,
   PRIMARY KEY (id),
-   CONSTRAINT employee_ibfk_1
     FOREIGN KEY (role_id) 
     REFERENCES role(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-   CONSTRAINT employee_ibfk_2
     FOREIGN KEY (manager_id) 
     REFERENCES employee(id)
         ON UPDATE CASCADE
         ON DELETE SET NULL
 );
+
