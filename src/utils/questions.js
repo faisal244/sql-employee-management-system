@@ -39,4 +39,50 @@ const choiceQuestions = {
 	],
 };
 
-module.exports = choiceQuestions;
+// Loop stopper questions
+const employeeInfo = [
+	{
+		type: "input",
+		message: "Enter First Name",
+		name: "firstName",
+	},
+	{
+		type: "input",
+		message: "Enter Last Name",
+		name: "lastName",
+	},
+	{
+		type: "input",
+		message: "Enter Role Name",
+		name: "employeeRole",
+	},
+	{
+		type: "input",
+		message: "Enter Manager Name",
+		name: "employeeManager",
+	},
+];
+
+const departmentInfo = [
+	{
+		type: "input",
+		message: "Enter Department Name",
+		name: "departmentName",
+	},
+];
+
+const deleteRecord = [
+	{
+		type: "list",
+		message: "Which record type would you like to delete?",
+		name: "recordSelection",
+		choices: ["Delete Department", "Delete role", "Delete employee"],
+	},
+];
+
+module.exports = {
+	choiceQuestions,
+	employeeInfo,
+	departmentInfo,
+	deleteRecord,
+};

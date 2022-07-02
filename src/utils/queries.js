@@ -1,19 +1,31 @@
-//get all departments query
-const getDepartments = `SELECT department.name AS departments FROM department`;
+const { departmentInfo } = require("./questions");
+const { dbOptions } = require("../db");
 
-//get all roles query
-const getRoles = `SELECT roles.title AS role, roles.salary, department.name AS department FROM roles JOIN department ON roles.departmentId = department.id ORDER BY department.name`;
+const employeeQuery = `
+  SELECT 
+    CONCAT(E.FIRST_NAME,' ', E.LAST_NAME) AS 'EMPLOYEE',
+    E.ID,
+    R.SALARY,
+    R.TITLE,
+    D.NAME AS 'DEPT NAME',
+    CONCAT( M.FIRST_NAME,' ', M.LAST_NAME) AS MANAGER
+  FROM EMPLOYEE AS E 
+    LEFT JOIN EMPLOYEE AS M  ON E.MANAGER_ID = M.ID 
+    INNER JOIN ROLE R ON E.ROLE_ID = R.ID 
+    LEFT JOIN DEPARTMENT D ON R.DEPARTMENT_ID = D.ID ;`;
 
-//get all employees
-const getEmployees = `SELECT employee.firstName AS First_Name, employee.lastName AS Last_Name, title AS Role, salary AS Salary, name AS Department
-FROM employee 
-LEFT JOIN roles 
-ON employee.roleId=roles.id 
-LEFT JOIN department
-ON roles.departmentId=department.id;`;
+const roleQuery = "SELECT * FROM role";
 
-//insert new department query
-const addDepartment = `INSERT INTO department (name) VALUES ('Finance')`;
+const employeeList = "SELECT * FROM employee";
 
-//exports queries
-module.exports = { getDepartments, getRoles, getEmployees };
+const departmentQuery = "SELECT * FROM department";
+
+const employeeByManager = `SELECT CONCAT(E.FIRST_NAME,' ', E.LAST_NAME) AS 'USER', CONCAT( M.FIRST_NAME,' ', M.LAST_NAME) AS MANAGER FROM EMPLOYEE AS E JOIN EMPLOYEE AS M ON E.MANAGER_ID = M.ID ;`;
+
+module.exports = {
+	employeeQuery,
+	roleQuery,
+	departmentQuery,
+	employeeByManager,
+	employeeList,
+};

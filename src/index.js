@@ -1,52 +1,87 @@
-const inquirer = require("inquirer");
 const mysql = require("mysql2");
+const inquirer = require("inquirer");
 require("dotenv").config();
-
-const questions = require("./utils/questions");
-
+const table = require("table");
 const Db = require("./db");
 
-const { getDepartments, getRoles, getEmployees } = require("./utils/queries");
+// const config = {
+// 	// Predefined styles of table
+// 	border: table.getBorderCharacters("ramac"),
+// };
 
-const db = new Db({
-	host: process.env.DB_HOST || "localhost",
-	user: process.env.DB_USER || "root",
-	password: process.env.DB_PASSWORD || "password",
-	database: process.env.DB_NAME || "company_db",
-});
+const {
+	choiceQuestions,
+	employeeInfo,
+	departmentInfo,
+	deleteRecord,
+} = require("./utils/questions");
+
+const {
+	employeeQuery,
+	roleQuery,
+	departmentQuery,
+	employeeByManager,
+} = require("./utils/queries");
+
+// const { sendQuery } = require("./utils/utils");
 
 const init = async () => {
-	try {
-		// console.log(process.env);
+	const db = new Db({
+		host: process.env.DB_HOST || "localhost",
+		user: process.env.DB_USER || "root",
+		password: process.env.DB_PASSWORD || "password",
+		database: process.env.DB_NAME || "company_db",
+	});
 
-		await db.start();
+	await db.start();
 
-		let inProgress = true;
+	// try {
+	// console.log(process.env);
+	let inProgress = true;
 
-		while (inProgress) {
-			const { dbAction } = await inquirer.prompt(questions);
+	while (inProgress) {
+		const { dbAction } = await inquirer.prompt(choiceQuestions);
 
-			if (dbAction === "viewEmployee") {
-				await getEmployees();
-
-				console.table(employees);
-			}
-
-			// if (dbAction === "viewRoles") {
-			// 	const allRoles = await sendQuery(getRoles);
-
-			// 	console.table(roles);
-			// }
-
-			if (dbAction === "exit") {
-				await closeConnection();
-				inProgress = false;
-				console.log("THANK YOU");
-			}
+		// if VIEW ALL DEPARTMENTS, then retrieve from database and display table
+		if (dbAction === "View all Departments") {
+			const departments = await db.query(departmentQuery);
+			console.table(departments);
 		}
-	} catch (error) {
-		console.log(`[ERROR]: Internal error | ${error.message}`);
+
+		// if VIEW ALL ROLES, then retrieve from database and display table
+		if (dbAction === "View all roles") {
+			const roles = await db.query(roleQuery);
+			console.table(roles);
+		}
+
+		// if VIEW ALL EMPLOYEES, then retrieve from database and display table
+		if (dbAction === "View all Employees") {
+			const employees = await db.query(employeeQuery);
+			console.table(employees);
+		}
+
+		// if (dbAction === "viewRoles") {
+		// 	const allRoles = await sendQuery(getRoles);
+
+		// 	console.table(roles);
+		// }
+
+		// if (dbAction === "exit") {
+		// 	await closeConnection();
+		// 	inProgress = false;
+		// 	console.log("THANK YOU");
+		// }
+
+		// confirm if user would still like to interact with the database
+		if (dbAction === "exit") {
+			inProgress = false;
+			db.stop();
+			console.log("Session closed.");
+		}
 	}
+	// } catch (error) {
+	// 	console.log(`[ERROR]: Internal error | ${error.message}`);
+	// }
 };
 
 init();
