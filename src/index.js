@@ -58,6 +58,7 @@ const init = async () => {
 		if (dbAction === "View all Employees") {
 			const employees = await db.query(employeeQuery);
 			console.table(employees);
+			console.log("VIEW ALL EMPLOYEES CLICKED");
 		}
 
 		// if (dbAction === "viewRoles") {
