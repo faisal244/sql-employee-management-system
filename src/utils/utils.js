@@ -1,6 +1,6 @@
 // importing dependencies - DO NOT REMOVE
 const mysql = require("mysql2");
-const { dbOptions } = require("./db/databaseConfiguration");
+const { dbOptions } = require("../utils/dbConfig.js");
 const db = mysql.createConnection(dbOptions);
 
 // take the employee name from updateEmployeeInfo query, search database and retrieve id

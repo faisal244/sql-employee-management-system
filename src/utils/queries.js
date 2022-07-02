@@ -1,5 +1,5 @@
 const { departmentInfo } = require("./questions");
-const { dbOptions } = require("../db");
+const { dbOptions } = require("../utils/dbConfig.js");
 
 const employeeQuery = `
   SELECT 

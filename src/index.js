@@ -3,14 +3,15 @@ const inquirer = require("inquirer");
 require("dotenv").config();
 const table = require("table");
 const Db = require("./db");
+const { dbOptions } = require("./utils/dbConfig.js");
 
-// const config = {
-// 	// Predefined styles of table
-// 	border: table.getBorderCharacters("ramac"),
-// };
+const config = {
+	// table package settings for styles
+	border: table.getBorderCharacters("ramac"),
+};
 
 const {
-	choiceQuestions,
+	mainQuestions,
 	employeeInfo,
 	departmentInfo,
 	deleteRecord,
@@ -23,7 +24,11 @@ const {
 	employeeByManager,
 } = require("./utils/queries");
 
-// const { sendQuery } = require("./utils/utils");
+const {
+	generateRoleChoices,
+	generateEmployeeChoices,
+	generateDepartmentChoices,
+} = require("./utils/utils.js");
 
 const init = async () => {
 	const db = new Db({
@@ -35,59 +40,33 @@ const init = async () => {
 
 	await db.start();
 
-	// try {
-	// console.log(process.env);
+	// While inProgress is true, ask the user questions
 	let inProgress = true;
 
 	while (inProgress) {
-		const { dbAction } = await inquirer.prompt(choiceQuestions);
+		let { userInput } = await inquirer.prompt(mainQuestions);
 
-		// if VIEW ALL DEPARTMENTS, then retrieve from database and display table
-		if (dbAction === "View all Departments") {
+		// if user selects view all departments, then retrieve from database and display table
+		if (userInput === "View all departments") {
 			const departments = await db.query(departmentQuery);
 			console.table(departments);
 		}
 
-		// if VIEW ALL ROLES, then retrieve from database and display table
-		if (dbAction === "View all roles") {
+		// if user selects view all roles, then retrieve from database and display table
+		if (userInput === "View all roles") {
 			const roles = await db.query(roleQuery);
 			console.table(roles);
 		}
 
-		// if VIEW ALL EMPLOYEES, then retrieve from database and display table
-		if (dbAction === "View all Employees") {
+		// if user selects view all employees, then retrieve from database and display table
+		if (userInput === "View all employees") {
 			const employees = await db.query(employeeQuery);
 			console.table(employees);
-			console.log("VIEW ALL EMPLOYEES CLICKED");
-		}
-
-		// if (dbAction === "viewRoles") {
-		// 	const allRoles = await sendQuery(getRoles);
-
-		// 	console.table(roles);
-		// }
-
-		// if (dbAction === "exit") {
-		// 	await closeConnection();
-		// 	inProgress = false;
-		// 	console.log("THANK YOU");
-		// }
-
-		// confirm if user would still like to interact with the database
-		if (dbAction === "exit") {
-			inProgress = false;
-			db.stop();
-			console.log("Session closed.");
 		}
 	}
-	// } catch (error) {
-	// 	console.log(`[ERROR]: Internal error | ${error.message}`);
-	// }
 };
 
 init();
-
-// console.log("hello from node!");
 
 // // init function
 
@@ -145,5 +124,5 @@ init();
 // 	// in that function, you will have a sql query to find that employee and update their database entry
 // };
 
-// // can put get employees from db and get employyee choices into one function befcause they are repetitive
+// // can put get employees from db and get employee choices into one function befcause they are repetitive
 // const addRole = () => {};

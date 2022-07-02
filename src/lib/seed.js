@@ -5,7 +5,7 @@ const mysql = require("mysql2");
 const department = require("./department.js");
 const employee = require("./employee.js");
 const role = require("./role");
-const { dbOptions } = require("../db");
+const { dbOptions } = require("../utils/dbConfig.js");
 
 // creating connection to database
 const db = mysql.createConnection(dbOptions);

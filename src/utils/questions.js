@@ -1,43 +1,24 @@
-// Looping Starter Questions
-const choiceQuestions = {
-	type: "list",
-	name: "chosenAction",
-	message: "What would you like to do?",
-	choices: [
-		{
-			value: "viewEmployee",
-			name: "View all Employees",
-		},
-		{
-			value: "addEmployee",
-			name: "Add a new Employee",
-		},
-		{
-			value: "updateEmployeeRole",
-			name: "Update an Employee Role",
-		},
-		{
-			value: "viewRoles",
-			name: "View all Roles",
-		},
-		{
-			value: "addRoles",
-			name: "Add a new Role",
-		},
-		{
-			value: "viewDepartments",
-			name: "View all Departments",
-		},
-		{
-			value: "addDepartment",
-			name: "Add a new Department",
-		},
-		{
-			value: "exit",
-			name: "Exit",
-		},
-	],
-};
+// question set to prompt options to the user
+const mainQuestions = [
+	{
+		type: "list",
+		message: "What action would you like to take?",
+		name: "userInput",
+		choices: [
+			"View all departments",
+			"View all roles",
+			"View all employees",
+			"Add a department",
+			"Add a role",
+			"Add an employee",
+			"Update Employee role",
+			"Quit Session",
+			"Update Employee Manager",
+			"View Employee by Manager",
+			"Delete Record",
+		],
+	},
+];
 
 // Loop stopper questions
 const employeeInfo = [
@@ -81,7 +62,7 @@ const deleteRecord = [
 ];
 
 module.exports = {
-	choiceQuestions,
+	mainQuestions,
 	employeeInfo,
 	departmentInfo,
 	deleteRecord,
