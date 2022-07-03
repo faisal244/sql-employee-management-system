@@ -66,13 +66,29 @@ npm install
 
 ## [Usage](#usage)
 
-Once installed, please execute the following 2 commands in your terminal to run this application:
+Once all the dependancies have been installed, please provide the application with the source database schema by entering the following 2 commands in your terminal:
+
+```
+mysql -u root -p
+When promted for a password, enter "password"
+```
+
+then type:
+
+```
+
+source [enter absolute file path for the provided schema.sql file in the schema folder here]
+
+```
+
+type quit to exit the MySQL shell.
+
+Once the source database schema has been provided, please execute the following 2 commands in your terminal to seed the database with employee data and run this application:
 
 ```
 
 npm run seed
 npm run start
-
 
 ```
 

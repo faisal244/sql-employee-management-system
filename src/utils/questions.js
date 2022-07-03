@@ -1,4 +1,4 @@
-// question set to prompt options to the user
+// Main looping question set
 const mainQuestions = [
 	{
 		type: "list",

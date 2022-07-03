@@ -233,6 +233,7 @@ const init = async () => {
 			const roles = await db.query("SELECT * FROM role");
 			const employees = await db.query("SELECT * FROM  employee");
 			const department = await db.query("SELECT * FROM department");
+
 			//prompt questions to user
 			const { recordSelection } = await inquirer.prompt(deleteRecord);
 

@@ -59,6 +59,21 @@ const role = [
 		salary: "75000",
 		department_id: "4",
 	},
+	{
+		title: "HR Executive",
+		salary: "25000",
+		department_id: "4",
+	},
+	{
+		title: "HR Manager",
+		salary: "35000",
+		department_id: "4",
+	},
+	{
+		title: "HR Direcor",
+		salary: "60000",
+		department_id: "4",
+	},
 ];
 
 module.exports = role;

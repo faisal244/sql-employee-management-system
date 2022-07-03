@@ -25,28 +25,6 @@ db.query(departmentQuery, (err, result) => {
 	}
 
 	console.log("Successfully entered DEPARTMENTS into department table.");
-	//   db.end();
-});
-
-// creating values for employee
-const employeeValues = employee
-	.map(
-		(employee) =>
-			`('${employee.first_name}', '${employee.last_name}', '${employee.role_id}', ${employee.manager_id})`
-	)
-	.join(",");
-
-// template string query for employee table
-const employeeQuery = `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUE${employeeValues}`;
-
-db.query(employeeQuery, (err, result) => {
-	if (err) {
-		console.log(err);
-		return;
-	}
-
-	console.log("Successfully entered EMPLOYEES into employee table.");
-	//   db.end();
 });
 
 // creating values for role
@@ -64,5 +42,26 @@ db.query(roleQuery, (err, result) => {
 	}
 
 	console.log("Successfully entered ROLES into role table.");
-	//   db.end();
 });
+
+// creating values for employee
+const employeeValues = employee
+	.map(
+		(employee) =>
+			`('${employee.first_name}', '${employee.last_name}', '${employee.role_id}', ${employee.manager_id})`
+	)
+	.join(",");
+
+// template string query for employee table
+const employeeQuery = `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUE${employeeValues}`;
+
+db.query(employeeQuery, (err, result) => {
+	// `UPDATE employees SET manager_id = ${manager.manager} WHERE id = ${employee.employee}`;
+	if (err) {
+		console.log(err);
+		return;
+	}
+
+	console.log("Successfully entered EMPLOYEES into employee table.");
+});
+db.end();

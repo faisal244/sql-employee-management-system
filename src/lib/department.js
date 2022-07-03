@@ -12,6 +12,9 @@ const department = [
 	{
 		name: "Engineering",
 	},
+	{
+		name: "HR",
+	},
 ];
 
 module.exports = department;
