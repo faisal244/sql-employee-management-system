@@ -158,9 +158,11 @@ npm run start
 
 - Javascript
 - Node.JS
-- Inquirer Package
-- Dotenv
-- [NPM] Mysql2
+
+- [NPM] Inquirer
+- [NPM] Dotenv
+- [NPM] gradient-string
+- [NPM] figlet
 - [NPM] Table
 
 ---
