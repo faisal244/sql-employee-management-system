@@ -6,8 +6,8 @@ const Db = require("./db");
 const { dbOptions } = require("./utils/dbConfig.js");
 
 const config = {
-	// table package settings for styles
-	border: table.getBorderCharacters("ramac"),
+	// table package style settings
+	border: table.getBorderCharacters("honeywell"),
 };
 
 const {
@@ -165,8 +165,6 @@ const init = async () => {
 			} catch (error) {
 				console.log(error);
 			}
-
-			// template string query for department table
 		}
 
 		if (userInput === "Update Employee Manager") {
@@ -192,6 +190,34 @@ const init = async () => {
 
 			await db.query(
 				`UPDATE company_db.employee SET manager_id = '${newManager}' WHERE (id = '${employeeChoice}');`
+			);
+		}
+
+		// if user selects update employee role, then give the user the choice to update the role of an employee
+		if (userInput === "Update Employee role") {
+			const roles = await db.query("SELECT * FROM role");
+			const employees = await db.query("SELECT * FROM  employee");
+			const updateEmployeeInfo = [
+				{
+					type: "list",
+					message: "Select an employee to update their role",
+					name: "employeeToUpdate",
+					choices: generateEmployeeChoices(employees),
+				},
+				{
+					type: "list",
+					message: "Please select a role",
+					name: "employeeRole",
+					choices: generateRoleChoices(roles),
+				},
+			];
+
+			const { employeeToUpdate, employeeRole } = await inquirer.prompt(
+				updateEmployeeInfo
+			);
+
+			await db.query(
+				`UPDATE company_db.employee SET role_id = '${employeeRole}' WHERE (id = '${employeeToUpdate}');`
 			);
 		}
 	}
