@@ -63,6 +63,47 @@ const init = async () => {
 			const employees = await db.query(employeeQuery);
 			console.table(employees);
 		}
+
+		// if user selects add a department, then give the user the choice to add a department name
+		if (userInput === "Add a department") {
+			const { departmentName } = await inquirer.prompt(departmentInfo);
+
+			await db.query(
+				`INSERT INTO department (name) VALUES ('${departmentName}');`
+			);
+		}
+
+		// if user selects add a role, then give the user the choice to add a role name
+		if (userInput === "Add a role") {
+			const departments = await db.query(departmentQuery);
+
+			const roleQuestions = [
+				{
+					type: "list",
+					message: "Please select a department:",
+					name: "departmentId",
+					choices: generateDepartmentChoices(departments),
+				},
+				{
+					type: "input",
+					message: "Please enter role title:",
+					name: "title",
+				},
+				{
+					type: "input",
+					message: "Please enter role salary:",
+					name: "salary",
+				},
+			];
+
+			const { departmentId, title, salary } = await inquirer.prompt(
+				roleQuestions
+			);
+
+			await db.query(
+				`INSERT INTO role(title, salary, department_id) VALUES('${title}', '${salary}', '${departmentId}')`
+			);
+		}
 	}
 };
 
