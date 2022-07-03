@@ -1,6 +1,8 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 require("dotenv").config();
+const figlet = require("figlet");
+const gradient = require("gradient-string");
 const table = require("table");
 const Db = require("./db");
 const { dbOptions } = require("./utils/dbConfig.js");
@@ -31,6 +33,17 @@ const {
 } = require("./utils/utils.js");
 
 const init = async () => {
+	// Welcome message function that uses both figlet and gradient
+	function welcomeMessage() {
+		const welcomeMsg = `SQL  Employee  Management  System`;
+
+		figlet(welcomeMsg, (err, data) => {
+			console.log(gradient.pastel.multiline(data));
+		});
+	}
+
+	await welcomeMessage();
+
 	const db = new Db({
 		host: process.env.DB_HOST || "localhost",
 		user: process.env.DB_USER || "root",
