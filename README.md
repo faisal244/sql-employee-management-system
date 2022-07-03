@@ -55,6 +55,48 @@ The following video shows an example of the application being used from the comm
 
 ## Screenshots
 
+This image shows the welcome message and the initial menu options the user is presented with
+
+![This image shows the welcome message and the initial menu options the user is presented with](./Assets/welcome%20message-main-menu-screenshot.png)
+
+This image shows the 3 main table views the user can view and modify
+
+![This image shows the 3 main table views the user can view and modify](./Assets/view-all-tables-screenshot.png)
+
+The database schema / information architecture is shown in the following image:
+
+![Database schema includes tables labeled “employee,” role,” and “department.”](./Assets/12-sql-homework-demo-01.png)
+
+As the image illustrates, your schema should contain the following three tables:
+
+- `department`
+
+  - `id`: `INT PRIMARY KEY`
+
+  - `name`: `VARCHAR(30)` to hold department name
+
+- `role`
+
+  - `id`: `INT PRIMARY KEY`
+
+  - `title`: `VARCHAR(30)` to hold role title
+
+  - `salary`: `DECIMAL` to hold role salary
+
+  - `department_id`: `INT` to hold reference to department role belongs to
+
+- `employee`
+
+  - `id`: `INT PRIMARY KEY`
+
+  - `first_name`: `VARCHAR(30)` to hold employee first name
+
+  - `last_name`: `VARCHAR(30)` to hold employee last name
+
+  - `role_id`: `INT` to hold reference to employee role
+
+  - `manager_id`: `INT` to hold reference to another employee that is the manager of the current employee (`null` if the employee has no manager)
+
 ## Installation
 
 The application will be invoked by entering the following 3 commands line by line into your terminal / CLI
