@@ -1,9 +1,9 @@
-// importing dependencies - DO NOT REMOVE
+// dependency import declarations
 const mysql = require("mysql2");
 const { dbOptions } = require("../utils/dbConfig.js");
 const db = mysql.createConnection(dbOptions);
 
-// take the employee name from updateEmployeeInfo query, search database and retrieve id
+// Search database and retrieve role name and id
 const generateRoleChoices = (rolesFromDB) => {
 	return rolesFromDB.map((role) => {
 		return {
@@ -13,6 +13,7 @@ const generateRoleChoices = (rolesFromDB) => {
 	});
 };
 
+// Search database and retrieve an employee first and last name
 const generateEmployeeChoices = (employeeFromDB) => {
 	return employeeFromDB.map((employee) => {
 		return {
@@ -22,6 +23,7 @@ const generateEmployeeChoices = (employeeFromDB) => {
 	});
 };
 
+// Search database and retrieve department name and id
 const generateDepartmentChoices = (departmentFromDB) => {
 	return departmentFromDB.map((department) => {
 		return {

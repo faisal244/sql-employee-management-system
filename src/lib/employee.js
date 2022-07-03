@@ -1,5 +1,5 @@
 const employee = [
-	// Sales Employees
+	// Company Directors
 	{
 		first_name: "Barry",
 		last_name: "Thomson",
@@ -33,6 +33,8 @@ const employee = [
 		role_id: "15",
 		manager_id: "NULL",
 	},
+
+	// Sales Employees
 
 	{
 		first_name: "Julie",

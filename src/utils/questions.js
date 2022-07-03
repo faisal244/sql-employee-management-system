@@ -1,7 +1,7 @@
-// Main looping question set
-
+// dependency import declarations
 const gradient = require("gradient-string");
 
+// Main looping question set
 const mainQuestions = [
 	{
 		type: "list",
@@ -11,14 +11,14 @@ const mainQuestions = [
 			gradient.summer("View all departments"),
 			gradient.summer("View all roles"),
 			gradient.summer("View all employees"),
+			gradient.summer("View Employee by Manager"),
 			gradient.summer("Add a department"),
 			gradient.summer("Add a role"),
 			gradient.summer("Add an employee"),
 			gradient.summer("Update Employee role"),
-			gradient.summer("Quit Session"),
 			gradient.summer("Update Employee Manager"),
-			gradient.summer("View Employee by Manager"),
 			gradient.summer("Delete Record"),
+			gradient.summer("Quit Session"),
 		],
 	},
 ];

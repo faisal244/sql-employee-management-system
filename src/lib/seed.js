@@ -1,6 +1,4 @@
-// use the class here to refactor
-
-// importing dependencies - DO NOT REMOVE
+// dependency import declarations
 const mysql = require("mysql2");
 const department = require("./department.js");
 const employee = require("./employee.js");
@@ -8,7 +6,7 @@ const role = require("./role");
 const { dbOptions } = require("../utils/dbConfig.js");
 const gradient = require("gradient-string");
 
-// creating connection to database
+// connecting to database
 const db = mysql.createConnection(dbOptions);
 
 // creating values for department
@@ -51,7 +49,7 @@ db.query(roleQuery, (err, result) => {
 	);
 });
 
-// creating values for employee
+// creating employee values
 const employeeValues = employee
 	.map(
 		(employee) =>
@@ -63,7 +61,6 @@ const employeeValues = employee
 const employeeQuery = `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUE${employeeValues}`;
 
 db.query(employeeQuery, (err, result) => {
-	// `UPDATE employees SET manager_id = ${manager.manager} WHERE id = ${employee.employee}`;
 	if (err) {
 		console.log(err);
 		return;
