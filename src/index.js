@@ -104,6 +104,96 @@ const init = async () => {
 				`INSERT INTO role(title, salary, department_id) VALUES('${title}', '${salary}', '${departmentId}')`
 			);
 		}
+
+		// if user selects add an employee, then give the user the choice to add an employee
+		if (userInput === "Add an employee") {
+			const roles = await db.query("SELECT * FROM role");
+			const employees = await db.query("SELECT * FROM  employee");
+
+			const employeeInfo = [
+				{
+					type: "input",
+					message: "Enter First Name",
+					name: "firstName",
+				},
+				{
+					type: "input",
+					message: "Enter Last Name",
+					name: "lastName",
+				},
+				{
+					type: "list",
+					message: "Please select a role",
+					name: "employeeRole",
+					choices: generateRoleChoices(roles),
+				},
+				{
+					type: "confirm",
+					name: "managerQuery",
+					message: "Does the employee have a manager?",
+					default: null,
+				},
+				{
+					type: "list",
+					name: "employeeManager",
+					message: "Enter Manager Name:",
+					choices: generateEmployeeChoices(employees),
+					default: null,
+					when: (employeeInfo) => employeeInfo.managerQuery === true,
+				},
+			];
+
+			// prompt questions to user
+			const {
+				firstName,
+				lastName,
+				employeeRole,
+				employeeManager = null,
+			} = await inquirer.prompt(employeeInfo);
+
+			try {
+				console.log(employeeManager);
+				if (!employeeManager) {
+					await db.query(
+						`INSERT INTO employee(first_name, last_name, role_id) VALUE('${firstName}', '${lastName}', '${employeeRole}')`
+					);
+				} else {
+					await db.query(
+						`INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUE('${firstName}', '${lastName}', '${employeeRole}', '${employeeManager}')`
+					);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+
+			// template string query for department table
+		}
+
+		if (userInput === "Update Employee Manager") {
+			const employees = await db.query("SELECT * FROM  employee");
+			const updateManager = [
+				{
+					type: "list",
+					message: "Select Employee",
+					name: "employeeChoice",
+					choices: generateEmployeeChoices(employees),
+				},
+				{
+					type: "list",
+					message: "Select New Manager",
+					name: "newManager",
+					choices: generateEmployeeChoices(employees),
+				},
+			];
+
+			const { employeeChoice, newManager } = await inquirer.prompt(
+				updateManager
+			);
+
+			await db.query(
+				`UPDATE company_db.employee SET manager_id = '${newManager}' WHERE (id = '${employeeChoice}');`
+			);
+		}
 	}
 };
 
