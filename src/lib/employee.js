@@ -109,8 +109,6 @@ const employee = [
 		role_id: "13",
 		manager_id: "13",
 	},
-
-	// UPDATE employee SET manager_id = 3 WHERE id = 1;
 ];
 
 module.exports = employee;

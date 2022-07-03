@@ -6,6 +6,7 @@ const department = require("./department.js");
 const employee = require("./employee.js");
 const role = require("./role");
 const { dbOptions } = require("../utils/dbConfig.js");
+const gradient = require("gradient-string");
 
 // creating connection to database
 const db = mysql.createConnection(dbOptions);
@@ -24,7 +25,11 @@ db.query(departmentQuery, (err, result) => {
 		return;
 	}
 
-	console.log("Successfully entered DEPARTMENTS into department table.");
+	console.log(
+		gradient.instagram(
+			"Successfully entered DEPARTMENTS into department table."
+		)
+	);
 });
 
 // creating values for role
@@ -41,7 +46,9 @@ db.query(roleQuery, (err, result) => {
 		return;
 	}
 
-	console.log("Successfully entered ROLES into role table.");
+	console.log(
+		gradient.instagram("Successfully entered ROLES into role table.")
+	);
 });
 
 // creating values for employee
@@ -62,6 +69,8 @@ db.query(employeeQuery, (err, result) => {
 		return;
 	}
 
-	console.log("Successfully entered EMPLOYEES into employee table.");
+	console.log(
+		gradient.instagram("Successfully entered EMPLOYEES into employee table.")
+	);
 });
 db.end();

@@ -42,7 +42,7 @@ const init = async () => {
 		});
 	}
 
-	await welcomeMessage();
+	welcomeMessage();
 
 	const db = new Db({
 		host: process.env.DB_HOST || "localhost",
@@ -60,25 +60,25 @@ const init = async () => {
 		let { userInput } = await inquirer.prompt(mainQuestions);
 
 		// if user selects view all departments, then retrieve from database and display table
-		if (userInput === "View all departments") {
+		if (userInput === gradient.summer("View all departments")) {
 			const departments = await db.query(departmentQuery);
 			console.table(departments);
 		}
 
 		// if user selects view all roles, then retrieve from database and display table
-		if (userInput === "View all roles") {
+		if (userInput === gradient.summer("View all roles")) {
 			const roles = await db.query(roleQuery);
 			console.table(roles);
 		}
 
 		// if user selects view all employees, then retrieve from database and display table
-		if (userInput === "View all employees") {
+		if (userInput === gradient.summer("View all employees")) {
 			const employees = await db.query(employeeQuery);
 			console.table(employees);
 		}
 
 		// if user selects add a department, then give the user the choice to add a department name
-		if (userInput === "Add a department") {
+		if (userInput === gradient.summer("Add a department")) {
 			const { departmentName } = await inquirer.prompt(departmentInfo);
 
 			await db.query(
@@ -87,7 +87,7 @@ const init = async () => {
 		}
 
 		// if user selects add a role, then give the user the choice to add a role name
-		if (userInput === "Add a role") {
+		if (userInput === gradient.summer("Add a role")) {
 			const departments = await db.query(departmentQuery);
 
 			const roleQuestions = [
@@ -119,37 +119,37 @@ const init = async () => {
 		}
 
 		// if user selects add an employee, then give the user the choice to add an employee
-		if (userInput === "Add an employee") {
+		if (userInput === gradient.summer("Add an employee")) {
 			const roles = await db.query("SELECT * FROM role");
 			const employees = await db.query("SELECT * FROM  employee");
 
 			const employeeInfo = [
 				{
 					type: "input",
-					message: "Enter First Name",
+					message: gradient.instagram("Enter First Name"),
 					name: "firstName",
 				},
 				{
 					type: "input",
-					message: "Enter Last Name",
+					message: gradient.instagram("Enter Last Name"),
 					name: "lastName",
 				},
 				{
 					type: "list",
-					message: "Please select a role",
+					message: gradient.instagram("Please select a role"),
 					name: "employeeRole",
 					choices: generateRoleChoices(roles),
 				},
 				{
 					type: "confirm",
 					name: "managerQuery",
-					message: "Does the employee have a manager?",
+					message: gradient.instagram("Does the employee have a manager?"),
 					default: null,
 				},
 				{
 					type: "list",
 					name: "employeeManager",
-					message: "Enter Manager Name:",
+					message: gradient.instagram("Enter Manager Name:"),
 					choices: generateEmployeeChoices(employees),
 					default: null,
 					when: (employeeInfo) => employeeInfo.managerQuery === true,
@@ -180,18 +180,18 @@ const init = async () => {
 			}
 		}
 
-		if (userInput === "Update Employee Manager") {
+		if (userInput === gradient.summer("Update Employee Manager")) {
 			const employees = await db.query("SELECT * FROM  employee");
 			const updateManager = [
 				{
 					type: "list",
-					message: "Select Employee",
+					message: gradient.instagram("Select Employee"),
 					name: "employeeChoice",
 					choices: generateEmployeeChoices(employees),
 				},
 				{
 					type: "list",
-					message: "Select New Manager",
+					message: gradient.instagram("Select New Manager"),
 					name: "newManager",
 					choices: generateEmployeeChoices(employees),
 				},
@@ -207,19 +207,21 @@ const init = async () => {
 		}
 
 		// if user selects update employee role, then give the user the choice to update the role of an employee
-		if (userInput === "Update Employee role") {
+		if (userInput === gradient.summer("Update Employee role")) {
 			const roles = await db.query("SELECT * FROM role");
 			const employees = await db.query("SELECT * FROM  employee");
 			const updateEmployeeInfo = [
 				{
 					type: "list",
-					message: "Select an employee to update their role",
+					message: gradient.instagram(
+						"Select an employee to update their role"
+					),
 					name: "employeeToUpdate",
 					choices: generateEmployeeChoices(employees),
 				},
 				{
 					type: "list",
-					message: "Please select a role",
+					message: gradient.instagram("Please select a role"),
 					name: "employeeRole",
 					choices: generateRoleChoices(roles),
 				},
@@ -235,14 +237,14 @@ const init = async () => {
 		}
 
 		// if View Employee by Manager, then give the user the choice to View Employee by Manager
-		if (userInput === "View Employee by Manager") {
+		if (userInput === gradient.summer("View Employee by Manager")) {
 			//prompt questions to user
 			const viewEmployeeByManager = await db.query(employeeByManager);
 			console.table(viewEmployeeByManager);
 		}
 
 		// if Delete Record, then give the user the choice to Delete Record
-		if (userInput === "Delete Record") {
+		if (userInput === gradient.summer("Delete Record")) {
 			const roles = await db.query("SELECT * FROM role");
 			const employees = await db.query("SELECT * FROM  employee");
 			const department = await db.query("SELECT * FROM department");
@@ -250,11 +252,11 @@ const init = async () => {
 			//prompt questions to user
 			const { recordSelection } = await inquirer.prompt(deleteRecord);
 
-			if (recordSelection === "Delete employee") {
+			if (recordSelection === gradient.instagram("Delete employee")) {
 				const employeeList = [
 					{
 						type: "list",
-						message: "Select an employee to delete:",
+						message: gradient.instagram("Select an employee to delete:"),
 						name: "employeeToDelete",
 						choices: generateEmployeeChoices(employees),
 					},
@@ -264,14 +266,14 @@ const init = async () => {
 				await db.query(
 					`DELETE FROM company_db.employee WHERE (id = '${employeeToDelete}');`
 				);
-				console.log(`Employee successfully deleted`);
+				console.log(gradient.instagram(`Employee successfully deleted`));
 			}
 
-			if (recordSelection === "Delete role") {
+			if (recordSelection === gradient.instagram("Delete role")) {
 				const roleList = [
 					{
 						type: "list",
-						message: "Select a role to delete:",
+						message: gradient.instagram("Select a role to delete:"),
 						name: "roleToDelete",
 						choices: generateRoleChoices(roles),
 					},
@@ -281,14 +283,14 @@ const init = async () => {
 				await db.query(
 					`DELETE FROM company_db.role WHERE (id = '${roleToDelete}');`
 				);
-				console.log(`Role successfully deleted`);
+				console.log(gradient.instagram(`Role successfully deleted`));
 			}
 
-			if (recordSelection === "Delete Department") {
+			if (recordSelection === gradient.instagram("Delete Department")) {
 				const departmentList = [
 					{
 						type: "list",
-						message: "Select a role to delete:",
+						message: gradient.instagram("Select a role to delete:"),
 						name: "departmentToDelete",
 						choices: generateDepartmentChoices(department),
 					},
@@ -297,15 +299,15 @@ const init = async () => {
 				await db.query(
 					`DELETE FROM company_db.department WHERE (id = '${departmentToDelete}');`
 				);
-				console.log(`Department successfully deleted`);
+				console.log(gradient.instagram(`Department successfully deleted`));
 			}
 		}
 
 		// confirm if user would still like to interact with the database
-		if (userInput === "Quit Session") {
+		if (userInput === gradient.summer("Quit Session")) {
 			inProgress = false;
 			db.stop();
-			console.log("Session closed.");
+			console.log(gradient.instagram("Session closed."));
 		}
 	}
 };

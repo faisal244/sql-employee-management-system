@@ -1,21 +1,24 @@
 // Main looping question set
+
+const gradient = require("gradient-string");
+
 const mainQuestions = [
 	{
 		type: "list",
 		message: "What action would you like to take?",
 		name: "userInput",
 		choices: [
-			"View all departments",
-			"View all roles",
-			"View all employees",
-			"Add a department",
-			"Add a role",
-			"Add an employee",
-			"Update Employee role",
-			"Quit Session",
-			"Update Employee Manager",
-			"View Employee by Manager",
-			"Delete Record",
+			gradient.summer("View all departments"),
+			gradient.summer("View all roles"),
+			gradient.summer("View all employees"),
+			gradient.summer("Add a department"),
+			gradient.summer("Add a role"),
+			gradient.summer("Add an employee"),
+			gradient.summer("Update Employee role"),
+			gradient.summer("Quit Session"),
+			gradient.summer("Update Employee Manager"),
+			gradient.summer("View Employee by Manager"),
+			gradient.summer("Delete Record"),
 		],
 	},
 ];
@@ -24,7 +27,7 @@ const mainQuestions = [
 const employeeInfo = [
 	{
 		type: "input",
-		message: "Enter First Name",
+		message: gradient.instagram("Enter First Name"),
 		name: "firstName",
 	},
 	{
@@ -47,7 +50,7 @@ const employeeInfo = [
 const departmentInfo = [
 	{
 		type: "input",
-		message: "Enter Department Name",
+		message: gradient.instagram("Enter Department Name"),
 		name: "departmentName",
 	},
 ];
@@ -55,9 +58,13 @@ const departmentInfo = [
 const deleteRecord = [
 	{
 		type: "list",
-		message: "Which record type would you like to delete?",
+		message: gradient.instagram("Which record type would you like to delete?"),
 		name: "recordSelection",
-		choices: ["Delete Department", "Delete role", "Delete employee"],
+		choices: [
+			gradient.instagram("Delete Department"),
+			gradient.instagram("Delete role"),
+			gradient.instagram("Delete employee"),
+		],
 	},
 ];
 
