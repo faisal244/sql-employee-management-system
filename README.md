@@ -49,7 +49,7 @@ THEN I am prompted to select an employee to update and their new role and this i
 
 ## Video Walkthrough
 
-The following video shows an example of the application being used from the command line:
+The following video shows an example of the application being used from the command line - Please [click here](https://drive.google.com/file/d/1D4BlpzGmmyc1UbVKMTP0ObKn4AYDk2mN/view?usp=sharing) to view the demo or click on the thumbnail below:
 
 [![A video thumbnail shows the command-line employee management application with a play button overlaying the view.](./Assets/12-sql-homework-video-thumbnail.png)](https://drive.google.com/file/d/1D4BlpzGmmyc1UbVKMTP0ObKn4AYDk2mN/view?usp=sharing)
 
